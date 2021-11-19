@@ -1,2 +1,3 @@
 build
 backend/src/schemas
+backend/vendor

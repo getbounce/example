@@ -1,22 +1,15 @@
 #include <public.sdk/source/main/pluginfactory.h>
 #include <studiobridge/vst/Controller.hpp>
 
-#include "cids.h"
-#include "processor/Processor.h"
-#include "version.h"
+#include "info.h"
+#include "processor/Processor.hpp"
 
-#define stringPluginName "StudioBridgeExample"
+BEGIN_FACTORY_DEF(VENDOR, WEBSITE, EMAIL)
 
-using namespace Steinberg::Vst;
+DEF_CLASS2(INLINE_UID_FROM_FUID(ProcessorUID), PClassInfo::kManyInstances, kVstAudioEffectClass, NAME,
+           Vst::kDistributable, CATEGORY, VERSION, kVstVersionString, StudioBridgeExampleProcessor::createInstance)
 
-BEGIN_FACTORY_DEF("", "", "mailto:")
-
-DEF_CLASS2(INLINE_UID_FROM_FUID(kStudioBridgeExampleProcessorUID), PClassInfo::kManyInstances, kVstAudioEffectClass,
-           stringPluginName, Vst::kDistributable, StudioBridgeExampleVST3Category, FULL_VERSION_STR, kVstVersionString,
-           StudioBridgeExampleProcessor::createInstance)
-
-DEF_CLASS2(INLINE_UID_FROM_FUID(kStudioBridgeExampleControllerUID), PClassInfo::kManyInstances,
-           kVstComponentControllerClass, stringPluginName "Controller", 0, "", FULL_VERSION_STR, kVstVersionString,
-           SB::VST::Controller::createInstance)
+DEF_CLASS2(INLINE_UID_FROM_FUID(ControllerUID), PClassInfo::kManyInstances, kVstComponentControllerClass,
+           NAME "Controller", 0, "", VERSION, kVstVersionString, SB::VST::Controller::createInstance)
 
 END_FACTORY
