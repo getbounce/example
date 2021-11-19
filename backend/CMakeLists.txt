@@ -1,10 +1,12 @@
 cmake_minimum_required(VERSION 3.14.0)
 
 set(PROJECT StudioBridgeExample)
-set(VST_SDK /Users/arthur/Code/Music/vstsdk/vst3sdk)
 
 project(${PROJECT})
 add_compile_definitions(_DEBUG)
+
+set(STUDIO_BRIDGE_SDK ${PROJECT_SOURCE_DIR}/../..)
+set(VST_SDK ${STUDIO_BRIDGE_SDK}/vendor/vst3sdk)
 
 set(SMTG_VSTGUI_ROOT ${VST_SDK})
 add_subdirectory(${VST_SDK} ${PROJECT_BINARY_DIR}/vst3sdk)
@@ -18,8 +20,7 @@ smtg_add_vst3plugin(${PROJECT}
 smtg_add_vst3_snapshot(${PROJECT} resource/7C41BB75B556527392439BEADC67B477_snapshot.png)
 smtg_add_vst3_snapshot(${PROJECT} resource/7C41BB75B556527392439BEADC67B477_snapshot_2.0x.png)
 
-set(STUDIO_BRIDGE_SDK /Users/arthur/Code/Music/sdk/build)
-include(${STUDIO_BRIDGE_SDK}/studiobridge.cmake)
+include(${STUDIO_BRIDGE_SDK}/hack/studiobridge.cmake)
 add_studio_bridge(${PROJECT})
 
 target_compile_options(${PROJECT} PUBLIC -std=c++11)
