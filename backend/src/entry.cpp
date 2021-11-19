@@ -1,6 +1,5 @@
 #include <public.sdk/source/main/pluginfactory.h>
-
-#include <vst/Controller.hpp>
+#include <studiobridge/vst/Controller.hpp>
 
 #include "cids.h"
 #include "processor/Processor.h"

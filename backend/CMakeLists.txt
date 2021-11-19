@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.14.0)
 
-set(PROJECT StudioBridgeExample)
+set(PROJECT studiobridgeexample)
 
 project(${PROJECT})
 add_compile_definitions(_DEBUG)
