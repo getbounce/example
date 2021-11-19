@@ -1,0 +1,31 @@
+{
+  "name": "studiobridgeexample",
+  "version": "0.1.0",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "4.0.3",
+    "react-slider": "^1.3.1",
+    "studiobridge": "../frontend",
+    "typescript": "^4.1.2"
+  },
+  "devDependencies": {
+    "@types/node": "^12.0.0",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@types/react-slider": "^1.3.1"
+  },
+  "scripts": {
+    "start": "BROWSER=none FAST_REFRESH=false react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  }
+}

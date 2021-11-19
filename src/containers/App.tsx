@@ -1,6 +1,6 @@
 import './App.css';
 
-import Gain from './components/Gain';
+import Gain from '../components/Gain';
 import logo from './logo.svg';
 
 function App() {
