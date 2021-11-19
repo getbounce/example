@@ -6,11 +6,11 @@
 
 #define NAME "StudioBridgeExample"
 
-#define VENDOR "vendor"
+#define VENDOR "Studio Bridge"
 
-#define WEBSITE "http://website"
+#define WEBSITE "https://github.com/getstudiobridge/studiobridge"
 
-#define EMAIL "mailto:email"
+#define EMAIL "mailto:hello@achaloin.com"
 
 #define CATEGORY "Fx"
 

@@ -3,7 +3,6 @@ import ReactSlider from 'react-slider';
 import bridge from '../bridge';
 
 function Gain(): JSX.Element {
-  console.log('render', window.innerWidth, window.innerHeight);
   return (
     <ReactSlider
       invert
@@ -13,9 +12,7 @@ function Gain(): JSX.Element {
       thumbClassName='example-thumb'
       trackClassName='example-track'
       renderThumb={(props, state) => <div {...props}>{state.valueNow}</div>}
-      onChange={(value) => {
-        bridge.editParameter('gain', value / 100);
-      }}
+      onChange={(value) => bridge.editParameter('gain', value / 100)}
     />
   );
 }
