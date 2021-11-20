@@ -33,7 +33,7 @@ endif()
 # Make sure Studio Bridge is available
 # TODO: abstract platform
 if(NOT DEFINED STUDIO_BRIDGE_SDK)
-	set(STUDIO_BRIDGE_VERSION "1.0.0")
+	set(STUDIO_BRIDGE_VERSION 1.0.0)
 	set(STUDIO_BRIDGE_SDK ${PROJECT_BINARY_DIR}/vendor/studiobridge)
 	FetchContent_Declare(
 		studiobridge
@@ -73,7 +73,7 @@ target_include_directories(
 # Platform specifics
 if (APPLE)
 	smtg_set_bundle(${PROJECT}
-		BUNDLE_IDENTIFIER com.achaloin.${PROJECT}
+		BUNDLE_IDENTIFIER com.studiobridge.${PROJECT}
 		INFOPLIST "public/Info.plist" PREPROCESS
 	)
 endif()
