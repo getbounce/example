@@ -29,7 +29,7 @@ if(NOT DEFINED VST_SDK)
 	set(VST_SDK ${PROJECT_BINARY_DIR}/vendor/vst3sdk)
 	FetchContent_Declare(
 		vstsdk
-		GIT_REPOSITORY "git@github.com:steinbergmedia/vst3sdk"
+		GIT_REPOSITORY "https://github.com/steinbergmedia/vst3sdk"
 		GIT_TAG 2cc517019a2681fccf211e6a95776a0af1e16d04 # release 3.7.3
 		GIT_PROGRESS TRUE
 		SOURCE_DIR ${VST_SDK}
