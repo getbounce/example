@@ -1,11 +1,17 @@
 cmake_minimum_required(VERSION 3.14.0)
 include(FetchContent)
+set(FETCHCONTENT_QUIET FALSE)
 
 set(PROJECT StudioBridgeExample)
 project(${PROJECT})
-
-add_compile_definitions(_DEBUG)
 add_compile_definitions(VERSION="0.1.0")
+
+if("${CMAKE_BUILD_TYPE}" STREQUAL "")
+	set(CMAKE_BUILD_TYPE Debug)
+	add_compile_definitions(_DEBUG)
+elseif("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
+	add_compile_definitions(RELEASE)
+endif()
 
 # Make sure boost is available
 if(NOT DEFINED BOOST_SDK)
@@ -25,6 +31,7 @@ if(NOT DEFINED VST_SDK)
 		vstsdk
 		GIT_REPOSITORY "git@github.com:steinbergmedia/vst3sdk"
 		GIT_TAG 2cc517019a2681fccf211e6a95776a0af1e16d04 # release 3.7.3
+		GIT_PROGRESS TRUE
 		SOURCE_DIR ${VST_SDK}
 	)
 	FetchContent_MakeAvailable(vstsdk)
