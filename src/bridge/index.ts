@@ -1,4 +1,4 @@
-import Bridge from 'studiobridge';
+import Bridge from 'foobartestxyz';
 
 const bridge = new Bridge({
   parameters: {
