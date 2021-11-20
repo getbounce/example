@@ -10,7 +10,7 @@
 
 #define WEBSITE "https://github.com/getstudiobridge/studiobridge"
 
-#define EMAIL "mailto:hello@achaloin.com"
+#define EMAIL "mailto:hello@studiobridge.com"
 
 #define CATEGORY "Fx"
 
