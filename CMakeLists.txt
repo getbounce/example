@@ -31,11 +31,13 @@ if(NOT DEFINED VST_SDK)
 endif()
 
 # Make sure Studio Bridge is available
+# TODO: abstract platform
 if(NOT DEFINED STUDIO_BRIDGE_SDK)
+	set(STUDIO_BRIDGE_VERSION "1.0.0")
 	set(STUDIO_BRIDGE_SDK ${PROJECT_BINARY_DIR}/vendor/studiobridge)
 	FetchContent_Declare(
 		studiobridge
-		URL "https://github.com/getstudiobridge/studiobridge/releases/download/1.0.0/studiobridge-macos-1.0.0.zip"
+		URL "https://github.com/getstudiobridge/studiobridge/releases/download/${STUDIO_BRIDGE_VERSION}/studiobridge-macos-${STUDIO_BRIDGE_VERSION}.zip"
 		SOURCE_DIR ${STUDIO_BRIDGE_SDK}
 	)
 	FetchContent_MakeAvailable(studiobridge)
