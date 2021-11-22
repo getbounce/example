@@ -3,6 +3,7 @@
 #include <public.sdk/source/vst/vstaudioprocessoralgo.h>
 
 #include "Processor.hpp"
+#include "schemas/Parameter.hpp"
 #include "info.h"
 
 StudioBridgeExampleProcessor::StudioBridgeExampleProcessor() {
@@ -49,7 +50,7 @@ Steinberg::tresult StudioBridgeExampleProcessor::process(Steinberg::Vst::Process
       }
 
       switch (paramQueue->getParameterId()) {
-      case 42:
+      case Parameter::GAIN:
         this->gain = value;
         break;
       }

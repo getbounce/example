@@ -1,6 +1,6 @@
 import ReactSlider from 'react-slider';
 
-import bridge from '../bridge';
+import controller from '../controller';
 
 function Gain(): JSX.Element {
   return (
@@ -12,7 +12,7 @@ function Gain(): JSX.Element {
       thumbClassName='example-thumb'
       trackClassName='example-track'
       renderThumb={(props, state) => <div {...props}>{state.valueNow}</div>}
-      onChange={(value) => bridge.editParameter('gain', value / 100)}
+      onChange={(value) => controller.editParameter('gain', value / 100)}
     />
   );
 }

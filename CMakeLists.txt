@@ -69,11 +69,12 @@ smtg_add_vst3_snapshot(${PROJECT} public/7C41BB75B556527392439BEADC67B477_snapsh
 smtg_add_vst3_snapshot(${PROJECT} public/7C41BB75B556527392439BEADC67B477_snapshot_2.0x.png)
 
 # Compilation settings
-target_compile_options(${PROJECT} PUBLIC -std=c++11)
+target_compile_features(${PROJECT} PRIVATE cxx_std_17)
 target_link_libraries(${PROJECT} PRIVATE sdk)
 target_include_directories(
-	${PROJECT} PUBLIC
+	${PROJECT} PRIVATE
 	${VST_SDK}
+	${BOOST_SDK}
 	${PROJECT_SOURCE_DIR}/src
 )
 
