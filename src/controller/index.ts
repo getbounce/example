@@ -1,4 +1,4 @@
-import Controller from 'foobartestxyz';
+import { Controller } from 'foobartestxyz';
 
 import parameters from '../constants/parameters.json';
 import { ProcessorState } from './ProcessorState';
