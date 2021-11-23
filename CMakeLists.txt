@@ -94,6 +94,16 @@ target_include_directories(
 	${PROJECT_SOURCE_DIR}/src
 )
 
+# Generate schemas from TypeScript before compilation
+add_custom_target(
+	generateSchemas
+	COMMAND
+		mkdir -p ${PROJECT_SOURCE_DIR}/src/schemas &&
+		studiobridge generate schema -o ${PROJECT_SOURCE_DIR}/src/schemas ${PROJECT_SOURCE_DIR}/src/controller/State.ts ${PROJECT_SOURCE_DIR}/src/controller/ProcessorState.ts &&
+		studiobridge generate parameters -o ${PROJECT_SOURCE_DIR}/src/schemas ${PROJECT_SOURCE_DIR}/src/constants/parameters.json
+)
+add_dependencies(${PROJECT} generateSchemas)
+
 # Platform specifics
 if (APPLE)
 	smtg_set_bundle(${PROJECT}
