@@ -9153,6 +9153,9 @@ react-slider@^1.3.1:
   resolved "https://registry.yarnpkg.com/react-slider/-/react-slider-1.3.1.tgz#41dd88f7c67520811a4114d6f8f49d186268d9da"
   integrity sha512-bD8hHJJUgAHI8g1F6PY6432l+Dmcs2fqzUwDhd+0HWDdvfjwNoXRNC2cL9OWyGTjYlJM92A8nF/w1X4pyHfytQ==
 
+react-studiobridge@../../react-studiobridge:
+  version "0.1.0"
+
 react@^17.0.2:
   version "17.0.2"
   resolved "https://registry.yarnpkg.com/react/-/react-17.0.2.tgz#d0b5cc516d29eb3eee383f75b62864cfb6800037"
