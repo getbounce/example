@@ -6,6 +6,8 @@ set(PROJECT StudioBridgeExample)
 project(${PROJECT})
 add_compile_definitions(VERSION="0.1.0")
 
+# CMAKE_BUILD_TYPE must be defined at configuration time
+# or the project won't build
 if("${CMAKE_BUILD_TYPE}" STREQUAL "")
 	set(CMAKE_BUILD_TYPE Debug)
 	add_compile_definitions(_DEBUG)
@@ -22,6 +24,19 @@ if(NOT DEFINED BOOST_SDK)
 		SOURCE_DIR ${BOOST_SDK}
 	)
 	FetchContent_MakeAvailable(boost)
+endif()
+
+# Make sure json is available
+if(NOT DEFINED JSON_SDK)
+	set(JSON_SDK ${PROJECT_BINARY_DIR}/vendor/json)
+	FetchContent_Declare(
+		json
+		GIT_REPOSITORY "https://github.com/nlohmann/json"
+		GIT_TAG fec56a1a16c6e1c1b1f4e116a20e79398282626c # release 3.10.4
+		GIT_PROGRESS TRUE
+		SOURCE_DIR ${JSON_SDK}
+	)
+	FetchContent_MakeAvailable(json)
 endif()
 
 # Make sure VST SDK is available
@@ -75,6 +90,7 @@ target_include_directories(
 	${PROJECT} PRIVATE
 	${VST_SDK}
 	${BOOST_SDK}
+	${JSON_SDK}/include
 	${PROJECT_SOURCE_DIR}/src
 )
 
