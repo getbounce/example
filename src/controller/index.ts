@@ -1,5 +1,5 @@
 import { Controller } from 'foobartestxyz';
-import { createHooks } from 'react-studiobridge';
+import { createHooks } from 'react-foobartestxyz';
 
 import parameters from '../constants/parameters.json';
 import { ProcessorState } from './ProcessorState';
