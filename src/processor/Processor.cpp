@@ -3,24 +3,23 @@
 #include <public.sdk/source/vst/vstaudioprocessoralgo.h>
 
 #include "Processor.hpp"
-#include "schemas/Parameter.hpp"
 #include "info.h"
+#include "schemas/Parameter.hpp"
 
 StudioBridgeExampleProcessor::StudioBridgeExampleProcessor() {
-  setControllerClass(ControllerUID);
+  this->setControllerClass(ControllerUID);
 }
 
 StudioBridgeExampleProcessor::~StudioBridgeExampleProcessor() {}
 
 Steinberg::tresult StudioBridgeExampleProcessor::initialize(FUnknown* context) {
-  Steinberg::tresult result = AudioEffect::initialize(context);
-  if (result != Steinberg::kResultOk) {
-    return result;
+  if (AudioEffect::initialize(context) != Steinberg::kResultOk) {
+    return Steinberg::kResultFalse;
   }
 
-  addAudioInput(STR16("Stereo In"), Steinberg::Vst::SpeakerArr::kStereo);
-  addAudioOutput(STR16("Stereo Out"), Steinberg::Vst::SpeakerArr::kStereo);
-  // addEventInput(STR16("Event In"), 1);
+  this->addAudioInput(STR16("Stereo In"), Steinberg::Vst::SpeakerArr::kStereo);
+  this->addAudioOutput(STR16("Stereo Out"), Steinberg::Vst::SpeakerArr::kStereo);
+  this->addEventInput(STR16("Event In"), 1);
 
   return Steinberg::kResultOk;
 }
@@ -35,21 +34,29 @@ Steinberg::tresult StudioBridgeExampleProcessor::setActive(Steinberg::TBool stat
 
 Steinberg::tresult StudioBridgeExampleProcessor::process(Steinberg::Vst::ProcessData& data) {
   if (data.inputParameterChanges) {
-    Steinberg::int32 paramsChangedCount = data.inputParameterChanges->getParameterCount();
-    for (Steinberg::int32 index = 0; index < paramsChangedCount; index++) {
-      Steinberg::Vst::IParamValueQueue* paramQueue = data.inputParameterChanges->getParameterData(index);
-      if (!paramQueue) {
+
+    // For each changed parameter
+    auto changedParametersCount = data.inputParameterChanges->getParameterCount();
+    for (auto index = 0; index < changedParametersCount; index++) {
+
+      // Retreive change queue
+      auto parameterQueue = data.inputParameterChanges->getParameterData(index);
+      if (!parameterQueue) {
         continue;
       }
 
+      // Retreive lastest change in queue
       Steinberg::int32 sampleOffset;
       Steinberg::Vst::ParamValue value;
-      auto result = paramQueue->getPoint(paramQueue->getPointCount() - 1, sampleOffset, value);
+      auto result = parameterQueue->getPoint(parameterQueue->getPointCount() - 1, sampleOffset, value);
       if (result != Steinberg::kResultOk) {
         continue;
       }
 
-      switch (paramQueue->getParameterId()) {
+      // Find out which parameter it is
+      // by comparing its id against
+      // the `Parameter` enum
+      switch (parameterQueue->getParameterId()) {
       case Parameter::GAIN:
         this->gain = value;
         break;
@@ -57,27 +64,34 @@ Steinberg::tresult StudioBridgeExampleProcessor::process(Steinberg::Vst::Process
     }
   }
 
+  // Host may call `process` with no inputs to update parameters
   if (data.numInputs == 0 || data.numSamples == 0) {
     return Steinberg::kResultOk;
   }
 
-  Steinberg::int32 numChannels = data.inputs[0].numChannels;
-  Steinberg::uint32 sampleFramesSize = getSampleFramesSizeInBytes(processSetup, data.numSamples);
-  void** in = getChannelBuffersPointer(processSetup, data.inputs[0]);
-  void** out = getChannelBuffersPointer(processSetup, data.outputs[0]);
-  data.outputs[0].silenceFlags = 0;
+  // Using a single input and single output
+  // In theory we should iterate and multiplex
+  auto input = data.inputs[0];
+  auto output = data.outputs[0];
+  auto inputChannels = getChannelBuffersPointer(this->processSetup, input);
+  auto outputChannels = getChannelBuffersPointer(this->processSetup, output);
 
-  for (Steinberg::int32 i = 0; i < numChannels; i++) {
-    Steinberg::int32 samples = data.numSamples;
-    Steinberg::Vst::Sample32* ptrIn = (Steinberg::Vst::Sample32*)in[i];
-    Steinberg::Vst::Sample32* ptrOut = (Steinberg::Vst::Sample32*)out[i];
-    Steinberg::Vst::Sample32 tmp;
+  // For each channel (left and right)
+  for (auto channelIndex = 0; channelIndex < input.numChannels; channelIndex++) {
+    auto inputSamples = static_cast<Steinberg::Vst::Sample32*>(inputChannels[channelIndex]);
+    auto outputSamples = static_cast<Steinberg::Vst::Sample32*>(outputChannels[channelIndex]);
 
-    for (Steinberg::int32 j = 0; j < samples; j++) {
-      ptrOut[j] = ptrIn[j] * this->gain;
+    // For each sample
+    for (auto sampleIndex = 0; sampleIndex < data.numSamples; sampleIndex++) {
+      // Copying input to output will forward sound with no change
+      // By multiplying everything we can control the volume
+      outputSamples[sampleIndex] = inputSamples[sampleIndex] * this->gain;
     }
   }
 
+  // Indicate host output is not silent
+  // In VST3 we have to manage the silence feature manually
+  output.silenceFlags = 0;
   return Steinberg::kResultOk;
 }
 
@@ -108,5 +122,5 @@ Steinberg::tresult StudioBridgeExampleProcessor::getState(Steinberg::IBStream* s
 }
 
 Steinberg::FUnknown* StudioBridgeExampleProcessor::createInstance(void* context) {
-  return (Steinberg::Vst::IAudioProcessor*)new StudioBridgeExampleProcessor;
+  return (Steinberg::Vst::IAudioProcessor*)new StudioBridgeExampleProcessor();
 }
