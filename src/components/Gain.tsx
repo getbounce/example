@@ -12,7 +12,7 @@ function Gain(): JSX.Element {
       thumbClassName='example-thumb'
       trackClassName='example-track'
       renderThumb={(props, state) => <div {...props}>{state.valueNow}</div>}
-      onChange={(value) => controller.editParameter('gain', value / 100)}
+      onChange={(value) => controller.updateParameter('gain', value / 100)}
     />
   );
 }
