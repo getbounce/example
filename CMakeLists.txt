@@ -59,7 +59,7 @@ if(NOT DEFINED STUDIO_BRIDGE_SDK)
 	set(STUDIO_BRIDGE_SDK ${PROJECT_BINARY_DIR}/vendor/studiobridge)
 	FetchContent_Declare(
 		studiobridge
-		URL "https://github.com/getstudiobridge/studiobridge/releases/download/${STUDIO_BRIDGE_VERSION}/studiobridge-macos-${STUDIO_BRIDGE_VERSION}.zip"
+		URL "https://github.com/getstudiobridge/studiobridge/releases/download/${STUDIO_BRIDGE_VERSION}/studiobridge-${STUDIO_BRIDGE_VERSION}-mac.zip"
 		SOURCE_DIR ${STUDIO_BRIDGE_SDK}
 	)
 	FetchContent_MakeAvailable(studiobridge)
