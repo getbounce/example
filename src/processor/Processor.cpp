@@ -6,13 +6,13 @@
 #include "info.h"
 #include "schemas/Parameter.hpp"
 
-StudioBridgeExampleProcessor::StudioBridgeExampleProcessor() {
+Processor::Processor() {
   this->setControllerClass(ControllerUID);
 }
 
-StudioBridgeExampleProcessor::~StudioBridgeExampleProcessor() {}
+Processor::~Processor() {}
 
-Steinberg::tresult StudioBridgeExampleProcessor::initialize(FUnknown* context) {
+Steinberg::tresult Processor::initialize(FUnknown* context) {
   if (AudioEffect::initialize(context) != Steinberg::kResultOk) {
     return Steinberg::kResultFalse;
   }
@@ -24,15 +24,15 @@ Steinberg::tresult StudioBridgeExampleProcessor::initialize(FUnknown* context) {
   return Steinberg::kResultOk;
 }
 
-Steinberg::tresult StudioBridgeExampleProcessor::terminate() {
+Steinberg::tresult Processor::terminate() {
   return AudioEffect::terminate();
 }
 
-Steinberg::tresult StudioBridgeExampleProcessor::setActive(Steinberg::TBool state) {
+Steinberg::tresult Processor::setActive(Steinberg::TBool state) {
   return AudioEffect::setActive(state);
 }
 
-Steinberg::tresult StudioBridgeExampleProcessor::process(Steinberg::Vst::ProcessData& data) {
+Steinberg::tresult Processor::process(Steinberg::Vst::ProcessData& data) {
   if (data.inputParameterChanges) {
 
     // For each changed parameter
@@ -95,11 +95,11 @@ Steinberg::tresult StudioBridgeExampleProcessor::process(Steinberg::Vst::Process
   return Steinberg::kResultOk;
 }
 
-Steinberg::tresult StudioBridgeExampleProcessor::setupProcessing(Steinberg::Vst::ProcessSetup& newSetup) {
+Steinberg::tresult Processor::setupProcessing(Steinberg::Vst::ProcessSetup& newSetup) {
   return AudioEffect::setupProcessing(newSetup);
 }
 
-Steinberg::tresult StudioBridgeExampleProcessor::canProcessSampleSize(Steinberg::int32 symbolicSampleSize) {
+Steinberg::tresult Processor::canProcessSampleSize(Steinberg::int32 symbolicSampleSize) {
   if (symbolicSampleSize == Steinberg::Vst::kSample32) {
     return Steinberg::kResultTrue;
   }
@@ -111,16 +111,16 @@ Steinberg::tresult StudioBridgeExampleProcessor::canProcessSampleSize(Steinberg:
   return Steinberg::kResultFalse;
 }
 
-Steinberg::tresult StudioBridgeExampleProcessor::setState(Steinberg::IBStream* state) {
+Steinberg::tresult Processor::setState(Steinberg::IBStream* state) {
   Steinberg::IBStreamer streamer(state, kLittleEndian);
   return Steinberg::kResultOk;
 }
 
-Steinberg::tresult StudioBridgeExampleProcessor::getState(Steinberg::IBStream* state) {
+Steinberg::tresult Processor::getState(Steinberg::IBStream* state) {
   Steinberg::IBStreamer streamer(state, kLittleEndian);
   return Steinberg::kResultOk;
 }
 
-Steinberg::FUnknown* StudioBridgeExampleProcessor::createInstance(void* context) {
-  return (Steinberg::Vst::IAudioProcessor*)new StudioBridgeExampleProcessor();
+Steinberg::FUnknown* Processor::createInstance(void* context) {
+  return (Steinberg::Vst::IAudioProcessor*)new Processor();
 }

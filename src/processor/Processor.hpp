@@ -2,10 +2,10 @@
 
 #include <public.sdk/source/vst/vstaudioeffect.h>
 
-class StudioBridgeExampleProcessor : public Steinberg::Vst::AudioEffect {
+class Processor : public Steinberg::Vst::AudioEffect {
 public:
-  StudioBridgeExampleProcessor();
-  ~StudioBridgeExampleProcessor() SMTG_OVERRIDE;
+  Processor();
+  ~Processor() SMTG_OVERRIDE;
 
   Steinberg::tresult initialize(Steinberg::FUnknown* context) SMTG_OVERRIDE;
   Steinberg::tresult terminate() SMTG_OVERRIDE;
