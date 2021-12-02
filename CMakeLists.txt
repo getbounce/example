@@ -99,8 +99,8 @@ add_custom_target(
 	generateSchemas
 	COMMAND
 		mkdir -p ${PROJECT_SOURCE_DIR}/src/schemas &&
-		studiobridge generate schema -o ${PROJECT_SOURCE_DIR}/src/schemas ${PROJECT_SOURCE_DIR}/src/controller/State.ts ${PROJECT_SOURCE_DIR}/src/controller/ProcessorState.ts &&
-		studiobridge generate parameters -o ${PROJECT_SOURCE_DIR}/src/schemas ${PROJECT_SOURCE_DIR}/src/constants/parameters.json
+		studiobridge generate schema -o ${PROJECT_SOURCE_DIR}/src/schemas ${PROJECT_SOURCE_DIR}/src/controller/State.ts ${PROJECT_SOURCE_DIR}/src/processor/ProcessorState.ts &&
+		studiobridge generate parameters -o ${PROJECT_SOURCE_DIR}/src/schemas ${PROJECT_SOURCE_DIR}/src/config/parameters.json
 )
 add_dependencies(${PROJECT} generateSchemas)
 
