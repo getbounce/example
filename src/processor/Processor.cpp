@@ -10,8 +10,6 @@ Processor::Processor() {
   this->setControllerClass(ControllerUID);
 }
 
-Processor::~Processor() {}
-
 Steinberg::tresult Processor::initialize(FUnknown* context) {
   if (AudioEffect::initialize(context) != Steinberg::kResultOk) {
     return Steinberg::kResultFalse;
@@ -24,12 +22,8 @@ Steinberg::tresult Processor::initialize(FUnknown* context) {
   return Steinberg::kResultOk;
 }
 
-Steinberg::tresult Processor::terminate() {
-  return AudioEffect::terminate();
-}
-
-Steinberg::tresult Processor::setActive(Steinberg::TBool state) {
-  return AudioEffect::setActive(state);
+Steinberg::tresult Processor::setupProcessing(Steinberg::Vst::ProcessSetup& newSetup) {
+  return AudioEffect::setupProcessing(newSetup);
 }
 
 Steinberg::tresult Processor::process(Steinberg::Vst::ProcessData& data) {
@@ -95,8 +89,8 @@ Steinberg::tresult Processor::process(Steinberg::Vst::ProcessData& data) {
   return Steinberg::kResultOk;
 }
 
-Steinberg::tresult Processor::setupProcessing(Steinberg::Vst::ProcessSetup& newSetup) {
-  return AudioEffect::setupProcessing(newSetup);
+Steinberg::tresult Processor::setActive(Steinberg::TBool state) {
+  return AudioEffect::setActive(state);
 }
 
 Steinberg::tresult Processor::canProcessSampleSize(Steinberg::int32 symbolicSampleSize) {
@@ -111,14 +105,8 @@ Steinberg::tresult Processor::canProcessSampleSize(Steinberg::int32 symbolicSamp
   return Steinberg::kResultFalse;
 }
 
-Steinberg::tresult Processor::setState(Steinberg::IBStream* state) {
-  Steinberg::IBStreamer streamer(state, kLittleEndian);
-  return Steinberg::kResultOk;
-}
-
-Steinberg::tresult Processor::getState(Steinberg::IBStream* state) {
-  Steinberg::IBStreamer streamer(state, kLittleEndian);
-  return Steinberg::kResultOk;
+Steinberg::tresult Processor::terminate() {
+  return AudioEffect::terminate();
 }
 
 Steinberg::FUnknown* Processor::createInstance(void* context) {

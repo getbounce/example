@@ -1,20 +1,19 @@
 #pragma once
 
-#include <public.sdk/source/vst/vstaudioeffect.h>
+#include <studiobridge/vst/Processor.hpp>
 
-class Processor : public Steinberg::Vst::AudioEffect {
+#include "schemas/ProcessorState.hpp"
+
+class Processor : public SB::VST::Processor<Schema::ProcessorState> {
 public:
   Processor();
-  ~Processor() SMTG_OVERRIDE;
 
-  Steinberg::tresult initialize(Steinberg::FUnknown* context) SMTG_OVERRIDE;
-  Steinberg::tresult terminate() SMTG_OVERRIDE;
-  Steinberg::tresult setActive(Steinberg::TBool state) SMTG_OVERRIDE;
-  Steinberg::tresult setupProcessing(Steinberg::Vst::ProcessSetup& newSetup) SMTG_OVERRIDE;
-  Steinberg::tresult canProcessSampleSize(Steinberg::int32 symbolicSampleSize) SMTG_OVERRIDE;
-  Steinberg::tresult process(Steinberg::Vst::ProcessData& data) SMTG_OVERRIDE;
-  Steinberg::tresult setState(Steinberg::IBStream* state) SMTG_OVERRIDE;
-  Steinberg::tresult getState(Steinberg::IBStream* state) SMTG_OVERRIDE;
+  Steinberg::tresult initialize(Steinberg::FUnknown* context) override;
+  Steinberg::tresult setupProcessing(Steinberg::Vst::ProcessSetup& newSetup) override;
+  Steinberg::tresult process(Steinberg::Vst::ProcessData& data) override;
+  Steinberg::tresult canProcessSampleSize(Steinberg::int32 symbolicSampleSize) override;
+  Steinberg::tresult setActive(Steinberg::TBool state) override;
+  Steinberg::tresult terminate() override;
 
   static Steinberg::FUnknown* createInstance(void* context);
 
