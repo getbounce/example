@@ -1,6 +1,6 @@
 import ReactSlider from 'react-slider';
 
-import controller from '../controller';
+import controller from '../../controller';
 
 function Gain(): JSX.Element {
   return (

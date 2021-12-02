@@ -6,7 +6,7 @@ import {
   useControllerParameters,
   useControllerState,
   useProcessorState,
-} from '../controller';
+} from '../../controller';
 
 function App() {
   const params = useControllerParameters();

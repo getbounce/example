@@ -4,7 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import App from './containers/App';
-import controller, { ControllerProvider } from './controller';
+import controller, { ControllerProvider } from '../controller';
 
 async function main() {
   await controller.initialize();

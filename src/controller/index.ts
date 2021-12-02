@@ -1,8 +1,8 @@
 import { Controller } from 'foobartestxyz';
 import { createHooks } from 'react-foobartestxyz';
 
-import parameters from '../constants/parameters.json';
-import { ProcessorState } from './ProcessorState';
+import parameters from '../config/parameters.json';
+import { ProcessorState } from '../processor/ProcessorState';
 import { State } from './State';
 
 export type Parameter = keyof typeof parameters;
