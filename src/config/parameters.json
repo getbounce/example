@@ -7,14 +7,5 @@
     "defaultValue": 1,
     "canAutomate": true,
     "unitID": 0
-  },
-  "foo": {
-    "title": "Foo",
-    "shortTitle": "Foo",
-    "unit": "dB",
-    "stepCount": 0,
-    "defaultValue": 1,
-    "canAutomate": true,
-    "unitID": 0
   }
 }
