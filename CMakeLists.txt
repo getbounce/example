@@ -40,7 +40,10 @@ if(NOT DEFINED STUDIO_BRIDGE_SDK)
 endif()
 
 # Load VST SDK
-set(SMTG_VSTGUI_ROOT ${PROJECT_SOURCE_DIR}/vendor/vst3sdk)
+if (NOT DEFINED VST_SDK)
+	set(VST_SDK ${PROJECT_SOURCE_DIR}/vendor/vst3sdk)
+	add_subdirectory(${VST_SDK})
+endif()
 smtg_enable_vst3_sdk()
 
 # Create VST
@@ -63,8 +66,8 @@ target_link_libraries(${PROJECT} PRIVATE sdk)
 target_include_directories(
 	${PROJECT} PRIVATE
 	${BOOST_SDK}
+	${VST_SDK}
 	${PROJECT_SOURCE_DIR}/src
-	${PROJECT_SOURCE_DIR}/vendor/vst3sdk
 	${PROJECT_SOURCE_DIR}/vendor/json/include
 )
 
