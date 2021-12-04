@@ -3,7 +3,7 @@
 #include <public.sdk/source/vst/vstaudioprocessoralgo.h>
 
 #include "Processor.hpp"
-#include "info.h"
+#include "info.hpp"
 #include "schemas/Parameter.hpp"
 
 Processor::Processor() {

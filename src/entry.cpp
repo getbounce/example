@@ -1,7 +1,7 @@
 #include <public.sdk/source/main/pluginfactory.h>
 #include <studiobridge/vst/Controller.hpp>
 
-#include "info.h"
+#include "info.hpp"
 #include "processor/Processor.hpp"
 #include "schemas/Parameter.hpp"
 #include "schemas/ProcessorState.hpp"
