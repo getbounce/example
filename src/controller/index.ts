@@ -7,20 +7,11 @@ import { ProcessorState } from '../processor/ProcessorState';
 import { State } from './State';
 
 const controller = new Controller<Parameter, State, ProcessorState>({
-  parameters,
+	parameters,
 });
 
-const {
-  ControllerProvider,
-  useControllerState,
-  useProcessorState,
-  useControllerParameters,
-} = createHooks(controller);
+const { ControllerProvider, useControllerState, useProcessorState, useControllerParameters } =
+	createHooks(controller);
 
 export default controller;
-export {
-  ControllerProvider,
-  useControllerState,
-  useProcessorState,
-  useControllerParameters,
-};
+export { ControllerProvider, useControllerState, useProcessorState, useControllerParameters };

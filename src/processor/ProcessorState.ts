@@ -1,3 +1,3 @@
 export type ProcessorState = {
-  bar: string;
+	bar: string;
 };

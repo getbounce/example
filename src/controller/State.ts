@@ -1,3 +1,3 @@
 export type State = {
-  foo: string;
+	foo: string;
 };
