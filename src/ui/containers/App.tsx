@@ -4,7 +4,7 @@ import Gain from '../components/Gain';
 import logo from './logo.svg';
 import { useControllerParameters, useControllerState, useProcessorState } from '../../controller';
 
-function App() {
+function App(): JSX.Element {
 	const params = useControllerParameters();
 	const state = useControllerState();
 	const processorState = useProcessorState();

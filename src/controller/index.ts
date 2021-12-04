@@ -2,12 +2,12 @@ import { Controller } from 'foobartestxyz';
 import { createHooks } from 'react-foobartestxyz';
 
 import Parameter from '../schemas/Parameter';
-import parameters from '../config/parameters.json';
+import createParameters from '../config/parameters';
 import { ProcessorState } from '../processor/ProcessorState';
 import { State } from './State';
 
 const controller = new Controller<Parameter, State, ProcessorState>({
-	parameters,
+	parameters: createParameters(),
 });
 
 const { ControllerProvider, useControllerState, useProcessorState, useControllerParameters } =

@@ -1,7 +1,7 @@
 import './index.css';
 
-import React from 'react';
 import ReactDOM from 'react-dom';
+import { StrictMode } from 'react';
 
 import App from './containers/App';
 import controller, { ControllerProvider } from '../controller';
@@ -9,11 +9,11 @@ import controller, { ControllerProvider } from '../controller';
 async function main() {
 	await controller.initialize();
 	ReactDOM.render(
-		<React.StrictMode>
+		<StrictMode>
 			<ControllerProvider>
 				<App />
 			</ControllerProvider>
-		</React.StrictMode>,
+		</StrictMode>,
 		document.getElementById('root'),
 	);
 }
