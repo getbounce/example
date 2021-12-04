@@ -1,11 +1,10 @@
 import { Controller } from 'foobartestxyz';
 import { createHooks } from 'react-foobartestxyz';
 
+import Parameter from '../schemas/Parameter';
 import parameters from '../config/parameters.json';
 import { ProcessorState } from '../processor/ProcessorState';
 import { State } from './State';
-
-export type Parameter = keyof typeof parameters;
 
 const controller = new Controller<Parameter, State, ProcessorState>({
   parameters,
