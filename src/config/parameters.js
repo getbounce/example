@@ -1,6 +1,6 @@
 // @ts-check
 
-/** @type {() => import('foobartestxyz').ParametersConfig<import('../schemas/Parameter').Parameter>} */
+/** @type {() => import('foobartestxyz').ParametersConfig} */
 module.exports = () => ({
 	gain: {
 		title: 'Gain',
