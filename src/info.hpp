@@ -6,7 +6,7 @@
 
 #define NAME "SidechainExample"
 
-#define VENDOR "Sidechain"
+#define VENDOR "Sidechain Inc."
 
 #define WEBSITE "https://github.com/getsidechain/sidechain"
 
