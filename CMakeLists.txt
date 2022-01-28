@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.14.0)
 include(FetchContent)
 set(FETCHCONTENT_QUIET FALSE)
 
-set(PROJECT StudioBridgeExample)
+set(PROJECT SidechainExample)
 project(${PROJECT})
 add_compile_definitions(VERSION="0.1.0")
 
@@ -26,17 +26,17 @@ if(NOT DEFINED BOOST_SDK)
 	FetchContent_MakeAvailable(boost)
 endif()
 
-# Make sure Studio Bridge is available
+# Make sure Sidechain is available
 # TODO: abstract platform
-if(NOT DEFINED STUDIO_BRIDGE_SDK)
-	set(STUDIO_BRIDGE_VERSION 1.0.0)
-	set(STUDIO_BRIDGE_SDK ${PROJECT_BINARY_DIR}/vendor/studiobridge)
+if(NOT DEFINED SIDECHAIN_SDK)
+	set(SIDECHAIN_VERSION 1.0.0)
+	set(SIDECHAIN_SDK ${PROJECT_BINARY_DIR}/vendor/sidechain)
 	FetchContent_Declare(
-		studiobridge
-		URL "https://github.com/getstudiobridge/studiobridge/releases/download/${STUDIO_BRIDGE_VERSION}/studiobridge-${STUDIO_BRIDGE_VERSION}-mac.zip"
-		SOURCE_DIR ${STUDIO_BRIDGE_SDK}
+		sidechain
+		URL "https://github.com/getsidechain/sidechain/releases/download/${SIDECHAIN_VERSION}/sidechain-${SIDECHAIN_VERSION}-mac.zip"
+		SOURCE_DIR ${SIDECHAIN_SDK}
 	)
-	FetchContent_MakeAvailable(studiobridge)
+	FetchContent_MakeAvailable(sidechain)
 endif()
 
 # Load VST SDK
@@ -52,9 +52,9 @@ smtg_add_vst3plugin(${PROJECT}
 	src/processor/Processor.cpp
 )
 
-# Load Studio Bridge
-include(${STUDIO_BRIDGE_SDK}/hack/studiobridge.cmake)
-add_studio_bridge(${PROJECT})
+# Load Sidechain
+include(${SIDECHAIN_SDK}/hack/sidechain.cmake)
+add_sidechain(${PROJECT})
 
 # Snapshot name matters
 smtg_add_vst3_snapshot(${PROJECT} public/7C41BB75B556527392439BEADC67B477_snapshot.png)
@@ -76,15 +76,15 @@ add_custom_target(
 	generateSchemas
 	COMMAND
 		mkdir -p ${PROJECT_SOURCE_DIR}/src/schemas &&
-		studiobridge generate schema -o ${PROJECT_SOURCE_DIR}/src/schemas ${PROJECT_SOURCE_DIR}/src/controller/State.ts ${PROJECT_SOURCE_DIR}/src/processor/ProcessorState.ts &&
-		studiobridge generate parameters -o ${PROJECT_SOURCE_DIR}/src/schemas ${PROJECT_SOURCE_DIR}/src/config/parameters.js
+		sidechain generate schema -o ${PROJECT_SOURCE_DIR}/src/schemas ${PROJECT_SOURCE_DIR}/src/controller/State.ts ${PROJECT_SOURCE_DIR}/src/processor/ProcessorState.ts &&
+		sidechain generate parameters -o ${PROJECT_SOURCE_DIR}/src/schemas ${PROJECT_SOURCE_DIR}/src/config/parameters.js
 )
 add_dependencies(${PROJECT} generateSchemas)
 
 # Platform specifics
 if (APPLE)
 	smtg_set_bundle(${PROJECT}
-		BUNDLE_IDENTIFIER com.studiobridge.${PROJECT}
+		BUNDLE_IDENTIFIER com.sidechain.${PROJECT}
 		INFOPLIST "public/Info.plist" PREPROCESS
 	)
 endif()

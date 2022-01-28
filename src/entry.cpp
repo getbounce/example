@@ -1,5 +1,5 @@
 #include <public.sdk/source/main/pluginfactory.h>
-#include <studiobridge/vst/Controller.hpp>
+#include <sidechain/vst/Controller.hpp>
 
 #include "info.hpp"
 #include "processor/Processor.hpp"

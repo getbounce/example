@@ -4,13 +4,13 @@
 #include <pluginterfaces/base/funknown.h>
 #include <pluginterfaces/vst/vsttypes.h>
 
-#define NAME "StudioBridgeExample"
+#define NAME "SidechainExample"
 
-#define VENDOR "Studio Bridge"
+#define VENDOR "Sidechain"
 
-#define WEBSITE "https://github.com/getstudiobridge/studiobridge"
+#define WEBSITE "https://github.com/getsidechain/sidechain"
 
-#define EMAIL "mailto:hello@studiobridge.com"
+#define EMAIL "mailto:hello@sidechain.com"
 
 #define CATEGORY "Fx"
 

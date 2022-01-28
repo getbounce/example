@@ -1,6 +1,6 @@
 #pragma once
 
-#include <studiobridge/vst/Processor.hpp>
+#include <sidechain/vst/Processor.hpp>
 
 #include "schemas/ProcessorState.hpp"
 
