@@ -9,18 +9,18 @@
 #include "schemas/State.hpp"
 
 #ifdef _DEBUG
-SB::Configuration SB::Configuration::Shared = {
+Sidechain::Configuration Sidechain::Configuration::Shared = {
     .development = true,
     .enableSocketBridge = true,
 };
 #else
-SB::Configuration SB::Configuration::Shared = {
+Sidechain::Configuration Sidechain::Configuration::Shared = {
     .development = false,
     .enableSocketBridge = false,
 };
 #endif
 
-using Controller = SB::VST::Controller<Schema::ParametersConfig, Schema::State, Schema::ProcessorState>;
+using Controller = Sidechain::VST::Controller<Schema::ParametersConfig, Schema::State, Schema::ProcessorState>;
 
 BEGIN_FACTORY_DEF(VENDOR, WEBSITE, EMAIL)
 

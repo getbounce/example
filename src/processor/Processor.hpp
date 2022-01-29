@@ -4,7 +4,7 @@
 
 #include "schemas/ProcessorState.hpp"
 
-class Processor : public SB::VST::Processor<Schema::ProcessorState> {
+class Processor : public Sidechain::VST::Processor<Schema::ProcessorState> {
 public:
   Processor();
 
