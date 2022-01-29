@@ -83,8 +83,16 @@ add_dependencies(${PROJECT} generateSchemas)
 
 # Platform specifics
 if (APPLE)
+	set (HTML_BUNDLE_PATH ../Resources/UI)
 	smtg_set_bundle(${PROJECT}
 		BUNDLE_IDENTIFIER com.sidechain.${PROJECT}
 		INFOPLIST "public/Info.plist" PREPROCESS
 	)
+endif()
+
+# Copy HTML bundle if needed
+if (EXISTS ${PROJECT_SOURCE_DIR}/build/ui)
+	add_custom_command(TARGET ${PROJECT} POST_BUILD COMMAND
+		${CMAKE_COMMAND} -E copy_directory
+		${PROJECT_SOURCE_DIR}/build/ui $<TARGET_FILE_DIR:${PROJECT}>/${HTML_BUNDLE_PATH})
 endif()

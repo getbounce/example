@@ -20,7 +20,7 @@
   },
   "scripts": {
     "start": "BROWSER=none FAST_REFRESH=false react-app-rewired start",
-    "build": "react-app-rewired build",
+    "build": "BUILD_PATH=build/ui react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject"
   },

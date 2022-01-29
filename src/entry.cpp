@@ -1,4 +1,5 @@
 #include <public.sdk/source/main/pluginfactory.h>
+#include <sidechain/utility/Configuration.hpp>
 #include <sidechain/vst/Controller.hpp>
 
 #include "info.hpp"
@@ -6,6 +7,18 @@
 #include "schemas/Parameter.hpp"
 #include "schemas/ProcessorState.hpp"
 #include "schemas/State.hpp"
+
+#ifdef _DEBUG
+SB::Configuration SB::Configuration::Shared = {
+    .development = true,
+    .enableSocketBridge = true,
+};
+#else
+SB::Configuration SB::Configuration::Shared = {
+    .development = false,
+    .enableSocketBridge = false,
+};
+#endif
 
 using Controller = SB::VST::Controller<Schema::ParametersConfig, Schema::State, Schema::ProcessorState>;
 
@@ -18,9 +31,3 @@ DEF_CLASS2(INLINE_UID_FROM_FUID(::ControllerUID), PClassInfo::kManyInstances, kV
            NAME "Controller", 0, "", VERSION, kVstVersionString, Controller::createInstance)
 
 END_FACTORY
-
-#ifdef RELEASE
-const bool Development = false;
-#else
-const bool Development = true;
-#endif
