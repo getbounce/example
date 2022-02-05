@@ -15,7 +15,7 @@ public:
   Steinberg::tresult setActive(Steinberg::TBool state) override;
   Steinberg::tresult terminate() override;
 
-  static Steinberg::FUnknown* createInstance(void* context);
+  static Steinberg::FUnknown* Create(void* context);
 
 private:
   float gain = 1;

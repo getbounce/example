@@ -27,6 +27,11 @@ Steinberg::tresult Processor::setupProcessing(Steinberg::Vst::ProcessSetup& newS
 }
 
 Steinberg::tresult Processor::process(Steinberg::Vst::ProcessData& data) {
+  // Block audio output if user license not activated
+  if (!Sidechain::License::Active) {
+    return Steinberg::kResultOk;
+  }
+
   if (data.inputParameterChanges) {
 
     // For each changed parameter
@@ -109,6 +114,6 @@ Steinberg::tresult Processor::terminate() {
   return AudioEffect::terminate();
 }
 
-Steinberg::FUnknown* Processor::createInstance(void* context) {
+Steinberg::FUnknown* Processor::Create(void* context) {
   return (Steinberg::Vst::IAudioProcessor*)new Processor();
 }

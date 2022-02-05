@@ -83,7 +83,7 @@ add_dependencies(${PROJECT} generateSchemas)
 
 # Platform specifics
 if (APPLE)
-	set (HTML_BUNDLE_PATH ../Resources/UI)
+	set (RESOURCES_PATH ../Resources)
 	smtg_set_bundle(${PROJECT}
 		BUNDLE_IDENTIFIER com.sidechain.${PROJECT}
 		INFOPLIST "public/Info.plist" PREPROCESS
@@ -94,5 +94,12 @@ endif()
 if (EXISTS ${PROJECT_SOURCE_DIR}/build/ui)
 	add_custom_command(TARGET ${PROJECT} POST_BUILD COMMAND
 		${CMAKE_COMMAND} -E copy_directory
-		${PROJECT_SOURCE_DIR}/build/ui $<TARGET_FILE_DIR:${PROJECT}>/${HTML_BUNDLE_PATH})
+		${PROJECT_SOURCE_DIR}/build/ui $<TARGET_FILE_DIR:${PROJECT}>/${RESOURCES_PATH}/UI)
+endif()
+
+# Copy license if needed
+if (EXISTS ${PROJECT_SOURCE_DIR}/license.pem)
+	add_custom_command(TARGET ${PROJECT} POST_BUILD COMMAND
+		${CMAKE_COMMAND} -E copy
+		${PROJECT_SOURCE_DIR}/license.pem $<TARGET_FILE_DIR:${PROJECT}>/${HTML_BUNDLE_PATH}/${RESOURCES_PATH})
 endif()
