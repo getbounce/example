@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.14.0)
+cmake_policy(SET CMP0077 NEW)
 include(FetchContent)
 set(FETCHCONTENT_QUIET FALSE)
 
@@ -40,11 +41,20 @@ if(NOT DEFINED SIDECHAIN_SDK)
 endif()
 
 # Load VST SDK
+set(SMTG_USE_STATIC_CRT true)
 if (NOT DEFINED VST_SDK)
 	set(VST_SDK ${PROJECT_SOURCE_DIR}/vendor/vst3sdk)
 	add_subdirectory(${VST_SDK})
 endif()
 smtg_enable_vst3_sdk()
+
+if(WIN32)
+	add_compile_options(
+		$<$<CONFIG:>:/MT>
+		$<$<CONFIG:Debug>:/MTd>
+		$<$<CONFIG:Release>:/MT>
+	)
+endif()
 
 # Create VST
 smtg_add_vst3plugin(${PROJECT}
@@ -53,7 +63,7 @@ smtg_add_vst3plugin(${PROJECT}
 )
 
 # Load Sidechain
-include(${SIDECHAIN_SDK}/hack/sidechain.cmake)
+include(${SIDECHAIN_SDK}/sidechain.cmake)
 add_sidechain(${PROJECT})
 
 # Snapshot name matters
@@ -61,7 +71,7 @@ smtg_add_vst3_snapshot(${PROJECT} public/7C41BB75B556527392439BEADC67B477_snapsh
 smtg_add_vst3_snapshot(${PROJECT} public/7C41BB75B556527392439BEADC67B477_snapshot_2.0x.png)
 
 # Compilation settings
-target_compile_features(${PROJECT} PRIVATE cxx_std_17)
+target_compile_features(${PROJECT} PRIVATE cxx_std_20)
 target_link_libraries(${PROJECT} PRIVATE sdk)
 target_include_directories(
 	${PROJECT} PRIVATE
@@ -75,31 +85,30 @@ target_include_directories(
 add_custom_target(
 	generateSchemas
 	COMMAND
-		mkdir -p ${PROJECT_SOURCE_DIR}/src/schemas &&
+		${CMAKE_COMMAND} -E make_directory ${PROJECT_SOURCE_DIR}/src/schemas &&
 		sidechain generate schema -o ${PROJECT_SOURCE_DIR}/src/schemas ${PROJECT_SOURCE_DIR}/src/controller/State.ts ${PROJECT_SOURCE_DIR}/src/processor/ProcessorState.ts &&
 		sidechain generate parameters -o ${PROJECT_SOURCE_DIR}/src/schemas ${PROJECT_SOURCE_DIR}/src/config/parameters.js
 )
 add_dependencies(${PROJECT} generateSchemas)
 
-# Platform specifics
-if (APPLE)
-	set (RESOURCES_PATH ../Resources)
-	smtg_set_bundle(${PROJECT}
-		BUNDLE_IDENTIFIER com.sidechain.${PROJECT}
-		INFOPLIST "public/Info.plist" PREPROCESS
-	)
-endif()
-
 # Copy HTML bundle if needed
 if (EXISTS ${PROJECT_SOURCE_DIR}/build/ui)
 	add_custom_command(TARGET ${PROJECT} POST_BUILD COMMAND
 		${CMAKE_COMMAND} -E copy_directory
-		${PROJECT_SOURCE_DIR}/build/ui $<TARGET_FILE_DIR:${PROJECT}>/${RESOURCES_PATH}/UI)
+		${PROJECT_SOURCE_DIR}/build/ui $<TARGET_FILE_DIR:${PROJECT}>/../Resources/UI)
 endif()
 
 # Copy license if needed
 if (EXISTS ${PROJECT_SOURCE_DIR}/license.pem)
 	add_custom_command(TARGET ${PROJECT} POST_BUILD COMMAND
 		${CMAKE_COMMAND} -E copy
-		${PROJECT_SOURCE_DIR}/license.pem $<TARGET_FILE_DIR:${PROJECT}>/${HTML_BUNDLE_PATH}/${RESOURCES_PATH})
+		${PROJECT_SOURCE_DIR}/license.pem $<TARGET_FILE_DIR:${PROJECT}>/../Resources/license.pem)
+endif()
+
+# Apple bundle identifier
+if (APPLE)
+	smtg_set_bundle(${PROJECT}
+		BUNDLE_IDENTIFIER com.sidechain.${PROJECT}
+		INFOPLIST "public/Info.plist" PREPROCESS
+	)
 endif()
