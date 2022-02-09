@@ -41,12 +41,15 @@ if(NOT DEFINED SIDECHAIN_SDK)
 endif()
 
 # Load VST SDK
-set(SMTG_USE_STATIC_CRT true)
+set(SMTG_USE_STATIC_CRT ON CACHE BOOL "")
+set(SMTG_ADD_VSTGUI OFF CACHE BOOL "")
+set(SMTG_ADD_VST3_PLUGINS_SAMPLES OFF CACHE BOOL "")
 if (NOT DEFINED VST_SDK)
 	set(VST_SDK ${PROJECT_SOURCE_DIR}/vendor/vst3sdk)
 	add_subdirectory(${VST_SDK})
 endif()
 smtg_enable_vst3_sdk()
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/../bin)
 
 if(WIN32)
 	add_compile_options(
@@ -90,20 +93,6 @@ add_custom_target(
 		sidechain generate parameters -o ${PROJECT_SOURCE_DIR}/src/schemas ${PROJECT_SOURCE_DIR}/src/config/parameters.js
 )
 add_dependencies(${PROJECT} generateSchemas)
-
-# Copy HTML bundle if needed
-if (EXISTS ${PROJECT_SOURCE_DIR}/build/ui)
-	add_custom_command(TARGET ${PROJECT} POST_BUILD COMMAND
-		${CMAKE_COMMAND} -E copy_directory
-		${PROJECT_SOURCE_DIR}/build/ui $<TARGET_FILE_DIR:${PROJECT}>/../Resources/UI)
-endif()
-
-# Copy license if needed
-if (EXISTS ${PROJECT_SOURCE_DIR}/license.pem)
-	add_custom_command(TARGET ${PROJECT} POST_BUILD COMMAND
-		${CMAKE_COMMAND} -E copy
-		${PROJECT_SOURCE_DIR}/license.pem $<TARGET_FILE_DIR:${PROJECT}>/../Resources/license.pem)
-endif()
 
 # Apple bundle identifier
 if (APPLE)
